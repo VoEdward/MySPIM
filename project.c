@@ -94,17 +94,137 @@ void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsi
 
 
 /* instruction decode */
+//Edward
 /* 15 Points */
 int instruction_decode(unsigned op,struct_controls *controls)
 {
 
+    switch(op)
+    {
+        //R-Type
+        case 0:
+        controls->RegDst=1;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=0;
+        controls->ALUOp=7;
+        controls->MemWrite=0;
+        controls->ALUSrc=0;
+        controls->RegWrite=1;
+        break;
+        //Jump Type
+        case 2:
+        controls->RegDst=1;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=0;
+        controls->ALUOp=1;
+        controls->MemWrite=0;
+        controls->ALUSrc=0;
+        controls->RegWrite=1;
+        break;
+        //BEQ
+        case 4:
+        controls->RegDst=2;
+        controls->Jump=0;
+        controls->Branch=1;
+        controls->MemRead=0;
+        controls->MemtoReg=2;
+        controls->ALUOp=1;
+        controls->MemWrite=0;
+        controls->ALUSrc=0;
+        controls->RegWrite=0;
+        break;
+        //ADDI
+        case 8:
+        controls->RegDst=0;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=0;
+        controls->ALUOp=0;
+        controls->MemWrite=0;
+        controls->ALUSrc=1;
+        controls->RegWrite=1;
+        break;
+        //SLTI
+        case 10:
+        controls->RegDst=0;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=0;
+        controls->ALUOp=2;
+        controls->MemWrite=0;
+        controls->ALUSrc=1;
+        controls->RegWrite=1;
+        break;
+        //SLTU
+       case 11:
+        controls->RegDst=0;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=0;
+        controls->ALUOp=3;
+        controls->MemWrite=0;
+        controls->ALUSrc=1;
+        controls->RegWrite=1;
+        break;
+        //LUI
+        case 15:
+        controls->RegDst=0;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=0;
+        controls->ALUOp=6;
+        controls->MemWrite=0;
+        controls->ALUSrc=1;
+        controls->RegWrite=1;
+        break;
+        //LW
+
+        case 23:
+        controls->RegDst=0;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=1;
+        controls->MemtoReg=1;
+        controls->ALUOp=0;
+        controls->MemWrite=0;
+        controls->ALUSrc=1;
+        controls->RegWrite=1;
+        break;
+        //SW
+        case 43:
+        controls->RegDst=2;
+        controls->Jump=0;
+        controls->Branch=0;
+        controls->MemRead=0;
+        controls->MemtoReg=2;
+        controls->ALUOp=0;
+        controls->MemWrite=1;
+        controls->ALUSrc=1;
+        controls->RegWrite=0;
+        break;
+        //if halt occurs then return 1;
+        default:
+            return 1;
+
+    }
+  //else return 0
+    return 0;
 }
 
 /* Read Register */
 /* 5 Points */
 void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigned *data2)
 {
-
+    *data1=Reg[r1];
+    *data2=Reg[r2];
 }
 
 
